@@ -46,15 +46,16 @@ func IsValidTokenId(s string) error {
 		return fmt.Errorf("invalid nft id")
 	}
 
+	var values []string
 	if strings.Contains(s, "-") {
-		values := strings.SplitN(s, "-", 2)
+		values = strings.SplitN(s, "-", 2)
 
 		if len(values) > 2 {
 			return fmt.Errorf("expected {shard}.{realm}.{num}-{checksum}")
 		}
 	}
 
-	values := strings.SplitN(s, ".", 3)
+	values = strings.SplitN(s, ".", 3)
 	if len(values) != 3 {
 		// Was not three values separated by periods
 		return fmt.Errorf("expected {shard}.{realm}.{num}")
