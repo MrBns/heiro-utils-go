@@ -5,34 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"shared/config"
 )
 
 func api_url(path string) string {
-	return config.GetEnvVars().Hedera_MirrorNode_Base_URL + path
-}
-
-type MirrorNodeAPIErrors struct {
-	Status struct {
-		Messages []struct {
-			Message string `json:"message"`
-		} `json:"messages"`
-	} `json:"_status"`
-}
-
-// Links
-type Links struct {
-	Next *string `json:"next"`
-}
-
-type MirrorNodeResponse[T any] struct {
-	Data   *T
-	Errors *MirrorNodeAPIErrors
-}
-
-type MirrorNodeListResponse[T any] struct {
-	Data   *T
-	Errors *MirrorNodeAPIErrors
+	return GetConfig().BASE_URL + path
 }
 
 func checkApiStatus(resp *http.Response) error {
